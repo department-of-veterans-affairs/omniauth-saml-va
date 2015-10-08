@@ -18,7 +18,7 @@ module OmniAuth
         options[:idp_sso_target_url] ||= location
         options[:idp_cert] ||= cert
         options[:name_identifier_format] ||= "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
-          super(app, options, &block)
+        super(app, options, &block)
       end
     end
   end
