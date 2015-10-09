@@ -9,7 +9,7 @@ if not ENV.has_key? 'SAML_XML_LOCATION'
 end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :samlva, 'CASEFLOW', ENV['SAML_XML_LOCATION'],
+  provider :samlva, 'CASEFLOW', ENV['SAML_PRIVATE_KEY'], ENV['SAML_XML_LOCATION'],
     :path_prefix => '/some-prefix/auth',
 end
 ```

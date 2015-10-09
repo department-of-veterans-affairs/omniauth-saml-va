@@ -7,14 +7,18 @@ require 'base64'
 module OmniAuth
   module Strategies
     class SAMLVA < OmniAuth::Strategies::SAML
-      def initialize(app, issuer=nil, configuration_xml=nil, options={}, &block)
+      def initialize(app, issuer=nil, private_key=nil, configuration_xml=nil, options={}, &block)
         doc = Nokogiri.XML(File.open(configuration_xml, 'rb'))
         cert = OpenSSL::X509::Certificate.new(Base64.decode64(doc.xpath(
             "//*[local-name()='KeyDescriptor']//*[local-name()='X509Certificate']/text()"
         )[0].text))
         location = doc.xpath("//*[local-name()='SingleSignOnService']/@Location")[0].text
 
-        options[:issuer] ||= issuer
+        private_key_crt = File.open(private_key, 'rb').read
+
+        options[:issuer] = issuer
+        options[:private_key] = private_key_crt
+
         options[:idp_sso_target_url] ||= location
         options[:idp_cert] ||= cert
         options[:name_identifier_format] ||= "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
