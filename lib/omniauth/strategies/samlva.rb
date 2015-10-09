@@ -14,10 +14,10 @@ module OmniAuth
         )[0].text))
         location = doc.xpath("//*[local-name()='SingleSignOnService']/@Location")[0].text
 
-        private_key_crt = File.read(private_key)
+        private_key = File.read(private_key)
 
         options[:issuer] = issuer
-        options[:private_key] = private_key_crt
+        options[:private_key] = private_key
 
         options[:idp_sso_target_url] ||= location
         options[:idp_cert] ||= cert
