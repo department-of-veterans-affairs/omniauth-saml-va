@@ -14,7 +14,7 @@ module OmniAuth
         )[0].text))
         location = doc.xpath("//*[local-name()='SingleSignOnService']/@Location")[0].text
 
-        private_key_crt = File.open(private_key, 'rb').read
+        private_key_crt = File.read(private_key)
 
         options[:issuer] = issuer
         options[:private_key] = private_key_crt
