@@ -20,7 +20,7 @@ module OmniAuth
         options[:private_key] = private_key
 
         options[:idp_sso_target_url] ||= location
-        options[:idp_cert] ||= cert
+        options[:idp_cert] ||= cert.to_pem
         options[:name_identifier_format] ||= "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
         super(app, options, &block)
       end
