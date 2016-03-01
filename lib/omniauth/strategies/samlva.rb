@@ -24,6 +24,10 @@ module OmniAuth
         options[:name_identifier_format] ||= "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
         super(app, options, &block)
       end
+
+      def request_phase
+        redirect("#{options[:idp_sso_target_url]}?SPID=#{options[:issuer]}")
+      end
     end
   end
 end
