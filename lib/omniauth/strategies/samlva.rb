@@ -7,7 +7,7 @@ require 'base64'
 module OmniAuth
   module Strategies
     class SAMLVA < OmniAuth::Strategies::SAML
-      def initialize(app, issuer=nil, private_key=nil, certificate=nil, configuration_xml=nil, options={}, &block)
+      def initialize(app, issuer=nil, private_key=nil, certificate=nil, configuration_xml=nil, sign=false, options={}, &block)
         doc = Nokogiri.XML(File.open(configuration_xml, 'rb'))
         cert = OpenSSL::X509::Certificate.new(Base64.decode64(doc.xpath(
             "//*[local-name()='KeyDescriptor']//*[local-name()='X509Certificate']/text()"
@@ -25,12 +25,12 @@ module OmniAuth
         options[:idp_cert] ||= cert.to_pem
         options[:name_identifier_format] ||= "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
         options[:security] = {
-          :authn_requests_signed    => true,
-          :logout_requests_signed   => true,
-          :logout_responses_signed  => true,
-          :want_assertions_signed   => true,
-          :metadata_signed          => true,
-          :embed_sign               => true,
+          :authn_requests_signed    => sign,
+          :logout_requests_signed   => sign,
+          :logout_responses_signed  => sign,
+          :want_assertions_signed   => sign,
+          :metadata_signed          => sign,
+          :embed_sign               => sign,
           :digest_method            => XMLSecurity::Document::SHA256,
           :signature_method         => XMLSecurity::Document::RSA_SHA256
         }
