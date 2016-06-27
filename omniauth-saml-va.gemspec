@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = 'paul.tagliamonte@va.gov'
   gem.homepage      = ''
 
-  gem.add_runtime_dependency 'omniauth-saml', '~> 1.5.0'
+  gem.add_runtime_dependency 'omniauth-saml', '~> 1.6.0'
 
   gem.files         = Dir['lib/**/*.rb']
   gem.require_paths = ["lib"]
