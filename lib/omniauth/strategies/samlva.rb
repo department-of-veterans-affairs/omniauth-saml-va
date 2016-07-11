@@ -32,11 +32,11 @@ module OmniAuth
 
         options[:security] = {
           :authn_requests_signed    => sign,
-          :logout_requests_signed   => sign,
-          :logout_responses_signed  => sign,
-          :want_assertions_signed   => sign,
-          :metadata_signed          => sign,
-          :embed_sign               => sign,
+          :logout_requests_signed   => false,
+          :logout_responses_signed  => false,
+          :want_assertions_signed   => false,
+          :metadata_signed          => false,
+          :embed_sign               => false,
           :digest_method            => XMLSecurity::Document::SHA256,
           :signature_method         => XMLSecurity::Document::RSA_SHA256
         }
