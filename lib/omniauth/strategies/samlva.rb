@@ -48,6 +48,11 @@ module OmniAuth
         return redirect("#{options[:idp_sso_target_url]}?SPID=#{options[:issuer]}") if self.iam_provider == :iam
         super
       end
+
+      def callback_phase
+        Rails.logger.info("SAMLResponse: #{request.params["SAMLResponse"]}")
+        super
+      end
     end
   end
 end
